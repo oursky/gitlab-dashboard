@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'backend',
     'frontend',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -50,6 +51,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 ]
 
 ROOT_URLCONF = 'gitlabDashboard.urls'
@@ -72,6 +75,9 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'gitlabDashboard.wsgi.application'
 
+CORS_ORIGIN_WHITELIST = [
+    "http://localhost:3000",
+]
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
