@@ -21,6 +21,13 @@ Design:
 docker-compose up
 ```
 
+## Backend setup:
+
+```
+cd frontend
+yarn start
+```
+
 ## Architecture:
 ### System Diagram:
 
