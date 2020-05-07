@@ -10,7 +10,7 @@ function App() {
       .then(
         (result) => {
           console.log(result);
-          setProjectId(result[0].projectId);
+          setProjectId(result[result.length-1].projectId);
         },
         (error) => {
           console.log(error);
