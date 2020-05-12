@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import './App.css';
 
 function App() {
-  const [projectId, setProjectId] = useState("");
+  const [projectList, setProjectList] = useState([]);
 
   useEffect(() => {
     fetch("http://localhost:8000/projects/")
@@ -10,16 +10,17 @@ function App() {
       .then(
         (result) => {
           console.log(result);
-          setProjectId(result[result.length-1].projectId);
+          setProjectList(result);
         },
         (error) => {
           console.log(error);
         }
       )
   }, [])
+
   return (
     <div className="App">
-      {projectId}
+      {projectList.map(project=><div>{JSON.stringify(project)}</div>)}
     </div>
   );
 }
