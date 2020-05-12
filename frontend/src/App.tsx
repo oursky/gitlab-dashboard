@@ -3,9 +3,10 @@ import './App.css';
 
 function App() {
   const [projectList, setProjectList] = useState([]);
+  const [pipelineList, setPipelineList] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:8000/projects/")
+    fetch("http://localhost:8000/backend/projects/")
       .then(res => res.json())
       .then(
         (result) => {
@@ -16,11 +17,25 @@ function App() {
           console.log(error);
         }
       )
+    fetch("http://localhost:8000/backend/pipelines/")
+      .then(res => res.json())
+      .then(
+        (result) => {
+          console.log(result);
+          setPipelineList(result);
+        },
+        (error) => {
+          console.log(error);
+        }
+      )
   }, [])
 
   return (
     <div className="App">
-      {projectList.map(project=><div>{JSON.stringify(project)}</div>)}
+      Projects:
+      {projectList.map((project,index)=><div key={index}>{JSON.stringify(project)}</div>)}
+      Pipelines:
+      {pipelineList.map((pipeline,index)=><div key={index}>{JSON.stringify(pipeline).slice(0, 100)}</div>)}
     </div>
   );
 }
