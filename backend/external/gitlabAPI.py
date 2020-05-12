@@ -1,5 +1,5 @@
 import requests
-from backend.models import Project, Pipeline
+from backend.models import Project, Pipeline, Runner
 MOCK_USER_ID = '5758391'
 
 # TODO: add requests access token header
@@ -8,6 +8,7 @@ MOCK_USER_ID = '5758391'
 def executeFetch():
     fetchProject()
     fetchPipeline()
+    fetchRunner()
 
 
 def fetchProject():
@@ -40,3 +41,15 @@ def fetchPipeline():
             pipeline = Pipeline(id=pipeline_data['id'], project_id=p_id, status=pipeline_data['status'], branch_ref=pipeline_data['ref'], commit_id=pipeline_data['sha'], commit_author=pipeline_data['user']
                                 ['name'], commit_message=commit_data['message'], created_at=pipeline_data['created_at'], updated_at=pipeline_data['updated_at'], finished_at=pipeline_data['finished_at'])
             pipeline.save()
+
+
+def fetchRunner():
+    url = 'https://gitlab.com/api/v4/runners'
+    # TODO: store private token properly
+    privateTokenHolder = '1234567890ABCDEFGHIJ'
+    res = requests.get(url, headers={'PRIVATE-TOKEN': privateTokenHolder})
+    runner_list = res.json()
+    for r in runner_list:
+        runner = Runner(id=r['id'], name=r['name'],
+                        description=r['description'], status=r['status'])
+        runner.save()

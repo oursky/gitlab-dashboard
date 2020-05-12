@@ -19,3 +19,10 @@ class Pipeline(models.Model):
     created_at = models.DateTimeField()
     updated_at = models.DateTimeField()
     finished_at = models.DateTimeField()
+
+
+class Runner(models.Model):
+    id = models.CharField(max_length=32, primary_key=True)
+    name = models.CharField(max_length=128)
+    description = models.CharField(max_length=256)
+    status = models.CharField(max_length=32)
