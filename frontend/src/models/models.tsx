@@ -54,3 +54,9 @@ export enum RunnerStatus {
   OFFLINE = 'offline',
   NOTCONNECTED = 'not_connected'
 }
+
+export interface ProjectViewModel {
+  id: string;
+  name: string;
+  pipelines: Pipeline[];
+}

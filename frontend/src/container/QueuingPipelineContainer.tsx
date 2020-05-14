@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import QueuingPipelineList from '../components/QueuingPipelineList';
-import {Project, Pipeline} from '../models/models';
-import {filterQueuedPipeline} from '../utils/pipelineFilter';
+import {Project, Pipeline, ProjectViewModel} from '../models/models';
+import {filterQueuedPipeline, generateProjectViewModel} from '../utils/utils';
 
 interface Props {
     projects: Project[];
@@ -9,18 +9,17 @@ interface Props {
 }
 
 const QueuingPipelineListContainer = (props: Props) => {
-    const [projectList, setProjectList] = useState<Project[]>([]);
-    const [pipelineList, setPipelineList] = useState<Pipeline[]>([]);
+    const [projectViewList, setProjectViewList] = useState<ProjectViewModel[]>([]);
 
     useEffect(() => {
-        setProjectList(props.projects);
         const queuedPipelineList = filterQueuedPipeline(props.pipelines, true);
-        setPipelineList(queuedPipelineList);
+        const projectViewModelList: ProjectViewModel[] = generateProjectViewModel(props.projects, queuedPipelineList);
+        setProjectViewList(projectViewModelList);
     }, [props.pipelines, props.projects]);
 
     return (
         <div>
-            <QueuingPipelineList projects={projectList} pipelines={pipelineList}></QueuingPipelineList>
+            <QueuingPipelineList projectsView={projectViewList}></QueuingPipelineList>
         </div>
     )
 }

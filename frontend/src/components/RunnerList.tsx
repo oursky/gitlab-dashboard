@@ -8,7 +8,7 @@ interface Props {
 function RunnerList(props: Props) {
 
     return (
-        <div className="App">
+        <div>
             {props.runners.map((project, index) => <div key={index}>{JSON.stringify(project)}</div>)}
         </div>
     );

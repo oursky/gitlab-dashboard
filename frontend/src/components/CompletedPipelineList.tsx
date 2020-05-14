@@ -1,17 +1,27 @@
 import React from 'react';
-import {Project, Pipeline} from '../models/models';
+import {ProjectViewModel} from '../models/models';
 
 interface Props {
-    projects: Project[];
-    pipelines: Pipeline[];
+    projectsView: ProjectViewModel[];
 }
 
 function CompletedPipelineList(props: Props) {
 
     return (
-        <div className="App">
-            {props.projects.map((project, index) => <div key={index}>{JSON.stringify(project).slice(0, 100)}</div>)}
-            {props.pipelines.map((pipeline, index) => <div key={index}>{JSON.stringify(pipeline).slice(0, 100)}</div>)}
+        <div>
+            {props.projectsView.map((project, index) => {
+                return (
+                    <div key={index}>
+                        <p>Project name: {project.name} </p>
+                        <div>pipelines:{
+                            project.pipelines.map((pipeline, index) => {
+                                return <div key={index}>{pipeline.commitMessage}</div>
+                            })
+                        }
+                        </div>
+                    </div>
+                )
+            })}
         </div>
     );
 }
