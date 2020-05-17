@@ -131,3 +131,4 @@ dmypy.json
 # Worker
 huey.*
 /deploy/staging/id_rsa
+/backend/.env

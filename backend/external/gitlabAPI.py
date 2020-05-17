@@ -1,6 +1,12 @@
+import os
 import requests
 from backend.models import Project, Pipeline, Runner
+from dotenv import load_dotenv
+from pathlib import Path
+env_path = Path('./backend') / '.env'
+load_dotenv(dotenv_path=env_path)
 MOCK_USER_ID = '5758391'
+GITLAB_PRIVATE_TOKEN = os.getenv("GITLAB_DEV_PRIVATE_TOKEN")
 
 # TODO: add requests access token header
 
@@ -46,8 +52,7 @@ def fetchPipeline():
 def fetchRunner():
     url = 'https://gitlab.com/api/v4/runners'
     # TODO: store private token properly
-    privateTokenHolder = '1234567890ABCDEFGHIJ'
-    res = requests.get(url, headers={'PRIVATE-TOKEN': privateTokenHolder})
+    res = requests.get(url, headers={'PRIVATE-TOKEN': GITLAB_PRIVATE_TOKEN})
     runner_list = res.json()
     for r in runner_list:
         runner = Runner(id=r['id'], name=r['name'],
