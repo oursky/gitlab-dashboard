@@ -38,7 +38,7 @@ function App() {
 
   return (
     <div>
-      <Container className={classes.root} maxWidth="md">
+      <Container className={classes.root} maxWidth="lg">
         <Grid container spacing={2}>
           <Grid item xs={6}>
             <Paper className={classes.paper}>
