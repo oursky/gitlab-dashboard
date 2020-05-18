@@ -9,7 +9,14 @@ function RunnerList(props: Props) {
 
     return (
         <div>
-            {props.runners.map((project, index) => <div key={index}>{JSON.stringify(project)}</div>)}
+            {props.runners.map((runner, index) => {
+                return (
+                    <div key={index}>
+                        <p>Runner name: {runner.name}</p>
+                    </div>
+                )
+            })
+            }
         </div>
     );
 }
