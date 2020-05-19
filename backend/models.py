@@ -16,9 +16,9 @@ class Pipeline(models.Model):
     commit_id = models.CharField(max_length=32)
     commit_author = models.CharField(max_length=32)
     commit_message = models.CharField(max_length=128)
-    created_at = models.DateTimeField()
-    updated_at = models.DateTimeField()
-    finished_at = models.DateTimeField()
+    created_at = models.DateTimeField(default=None, blank=True, null=True)
+    updated_at = models.DateTimeField(default=None, blank=True, null=True)
+    finished_at = models.DateTimeField(default=None, blank=True, null=True)
 
 
 class Runner(models.Model):
