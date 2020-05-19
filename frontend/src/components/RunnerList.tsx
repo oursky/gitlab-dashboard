@@ -1,5 +1,4 @@
 import React from 'react';
-import clsx from 'clsx';
 import {Runner} from '../models/models';
 import {Grid, Box, Card} from '@material-ui/core';
 import {useRunnerStyles} from '../styles/styles';

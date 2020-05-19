@@ -14,9 +14,17 @@ function App() {
   const [runnerList, setRunnerList] = useState<Runner[]>([]);
 
   const classes = useRootStyles();
+  const fetchRefreshRate = 10000;
 
   useEffect(() => {
-    fetchFromBackend(setProjectList, setPipelineList, setRunnerList);
+    try {
+      fetchFromBackend(setProjectList, setPipelineList, setRunnerList);
+      setInterval(() => {
+        fetchFromBackend(setProjectList, setPipelineList, setRunnerList);
+      }, fetchRefreshRate);
+    } catch (e) {
+      console.log(e);
+    }
   }, [])
 
   return (
