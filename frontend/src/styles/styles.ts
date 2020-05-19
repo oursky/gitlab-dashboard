@@ -1,5 +1,5 @@
 import {makeStyles, Theme, createStyles} from "@material-ui/core";
-import {lightBlue, red, teal, grey} from "@material-ui/core/colors";
+import {lightBlue, red, teal, grey, yellow} from "@material-ui/core/colors";
 
 export const useRootStyles = makeStyles((theme: Theme) =>
 createStyles({
@@ -30,7 +30,6 @@ export const useStyles = makeStyles((theme: Theme) =>
             justifyContent: "center",
             textAlign: "center",
             height: 60,
-            fontSize:5,
             lineHeight: 1.5,
         },
         projectNameCard: {
@@ -47,6 +46,12 @@ export const useStyles = makeStyles((theme: Theme) =>
             color: grey[50],
             fontWeight: 700,
         },
+        cardPending: {
+            backgroundColor: lightBlue[100],
+        },
+        cardRunning: {
+            backgroundColor: yellow[600],
+        },
         box: {
         },
         content: {
@@ -56,5 +61,23 @@ export const useStyles = makeStyles((theme: Theme) =>
         smallContent: {
             fontSize: 6,
         }
+    }),
+);
+
+export const useRunnerStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        root: {
+            flexGrow: 1,
+            flexDirection: "column",
+        },
+        card: {
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            textAlign: "center",
+            height: 80,
+            lineHeight: 0,
+            fontSize: 8,
+        },
     }),
 );

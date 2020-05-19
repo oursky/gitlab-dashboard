@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
-import CompletedPipelineList from '../components/CompletedPipelineList';
 import {Project, Pipeline, ProjectViewModel} from '../models/models';
 import {filterQueuedPipeline, generateProjectViewModel} from '../utils/utils';
+import PipelineProjectGenericView from '../components/PipelineProjectGenericView';
 
 interface Props {
     projects: Project[];
@@ -19,7 +19,7 @@ const CompletedPipelineListContainer = (props: Props) => {
 
     return (
         <div>
-            <CompletedPipelineList projectsView={projectViewList}></CompletedPipelineList>
+            <PipelineProjectGenericView projectsView={projectViewList}></PipelineProjectGenericView>
         </div>
     )
 }

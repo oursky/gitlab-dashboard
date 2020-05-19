@@ -9,7 +9,7 @@ interface Props {
     projectsView: ProjectViewModel[];
 }
 
-function CompletedPipelineList(props: Props) {
+function PipelineProjectGenericView(props: Props) {
     const classes = useStyles();
     return (
         <div className={classes.root}>
@@ -25,7 +25,7 @@ function CompletedPipelineList(props: Props) {
                                     {project.pipelines.map((pipeline, index) => {
                                         return (
                                             <Grid item key={index} xs={2}>
-                                                <Card className={clsx(classes.card, classes.pipelineCard, {[classes.cardSuccess]: pipeline.status === PipelineStatus.SUCCESS}, {[classes.cardFailed]: pipeline.status === PipelineStatus.FAILED})}>
+                                                <Card className={clsx(classes.card, classes.pipelineCard, {[classes.cardSuccess]: pipeline.status === PipelineStatus.SUCCESS}, {[classes.cardFailed]: pipeline.status === PipelineStatus.FAILED}, {[classes.cardPending]: pipeline.status === PipelineStatus.PENDING}, {[classes.cardRunning]: pipeline.status === PipelineStatus.RUNNING})}>
                                                     <p className={classes.content}># {pipeline.id}</p>
                                                     <p className={clsx(classes.content, classes.smallContent)}>{pipeline.commitId.slice(0, 8)} {truncatedText(pipeline.branchRef, 10)}</p>
                                                     <p className={classes.content}>{truncatedText(pipeline.commitMessage, 18)}</p>
@@ -45,4 +45,4 @@ function CompletedPipelineList(props: Props) {
     );
 }
 
-export default CompletedPipelineList;
+export default PipelineProjectGenericView;
