@@ -1,37 +1,13 @@
 import React from 'react';
-import {ProjectViewModel} from '../models/models';
-import {makeStyles, Theme, createStyles, Grid, Paper, Box, Card, CardContent} from '@material-ui/core';
+import clsx from 'clsx';
+import {ProjectViewModel, PipelineStatus} from '../models/models';
+import {Grid, Box, Card} from '@material-ui/core';
+import {useStyles} from '../styles/styles';
+import {truncatedText, displayDateFromNow} from '../utils/utils';
 
 interface Props {
     projectsView: ProjectViewModel[];
 }
-
-const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
-        root: {
-            flexGrow: 1,
-            backgroundColor: "orange",
-            flexDirection: "column",
-        },
-        card: {
-            height: 50,
-            fontSize: 5,
-            alignContent: "center",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-
-        },
-        box: {
-            backgroundColor: "green",
-        },
-        content: {
-            // color: "red",
-            padding: 0,
-            margin: 0,
-        }
-    }),
-);
 
 function CompletedPipelineList(props: Props) {
     const classes = useStyles();
@@ -44,17 +20,17 @@ function CompletedPipelineList(props: Props) {
                             <Box className={classes.box}>
                                 <Grid container spacing={1}>
                                     <Grid item xs={2}>
-                                        <Card className={classes.card}>{project.name}</Card>
+                                        <Card className={`${classes.card} ${classes.projectNameCard}`}>{project.name}</Card>
                                     </Grid>
                                     {project.pipelines.map((pipeline, index) => {
                                         return (
                                             <Grid item key={index} xs={2}>
-                                                <Card className={classes.card}>
-                                                    <p className={classes.content}>{pipeline.id}</p>
-                                                    <p className={classes.content}>{pipeline.commitId.slice(0, 8)} {pipeline.branchRef}</p>
-                                                    <p className={classes.content}>{pipeline.commitMessage}</p>
-                                                    <p className={classes.content}>{pipeline.commitAuthor}</p>
-                                                    <p className={classes.content}>{pipeline.finishedAt ? JSON.stringify(pipeline.finishedAt).slice(6, 20) : ""}</p>
+                                                <Card className={clsx(classes.card, classes.pipelineCard, {[classes.cardSuccess]: pipeline.status === PipelineStatus.SUCCESS}, {[classes.cardFailed]: pipeline.status === PipelineStatus.FAILED})}>
+                                                    <p className={classes.content}># {pipeline.id}</p>
+                                                    <p className={clsx(classes.content, classes.smallContent)}>{pipeline.commitId.slice(0, 8)} {truncatedText(pipeline.branchRef, 10)}</p>
+                                                    <p className={classes.content}>{truncatedText(pipeline.commitMessage, 18)}</p>
+                                                    <p className={classes.content}>{truncatedText(pipeline.commitAuthor, 18)}</p>
+                                                    <p className={classes.content}>{pipeline.finishedAt ? displayDateFromNow(pipeline.finishedAt) : ""}</p>
                                                 </Card>
                                             </Grid>
                                         )

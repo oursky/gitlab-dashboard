@@ -1,5 +1,5 @@
 import {makeStyles, Theme, createStyles} from "@material-ui/core";
-import {lightBlue} from "@material-ui/core/colors";
+import {lightBlue, red, teal, grey} from "@material-ui/core/colors";
 
 export const useRootStyles = makeStyles((theme: Theme) =>
 createStyles({
@@ -38,6 +38,14 @@ export const useStyles = makeStyles((theme: Theme) =>
         },
         pipelineCard: {
             fontSize: 8,
+        },
+        cardSuccess: {
+            backgroundColor: teal[100],
+        },
+        cardFailed: {
+            backgroundColor: red[400],
+            color: grey[50],
+            fontWeight: 700,
         },
         box: {
         },
