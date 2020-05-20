@@ -17,13 +17,25 @@ export const generateProjectViewModel = function(projects: Project[], pipelines:
     const projectViewList: ProjectViewModel[] = [];
     projects.forEach((project)=>{
         const projectView:ProjectViewModel = {id: project.id, name:project.name, pipelines:[]};
+        const candidatePipeline:Pipeline[] = []; 
         pipelines.forEach((pipeline)=>{
-            if(pipeline.projectId === project.id)projectView.pipelines.push(pipeline);
+            if(pipeline.projectId === project.id)candidatePipeline.push(pipeline);
+        })
+        candidatePipeline.sort((a:Pipeline,b:Pipeline)=>{
+            const dateA = new Date(a.createdAt?a.createdAt:"");
+            const dateB = new Date(b.createdAt?b.createdAt:"");
+            return dateB.getTime()-dateA.getTime();
+        });
+        const listLength = 5;
+        candidatePipeline.forEach((pipeline, index)=>{
+            if(index < listLength)projectView.pipelines.push(pipeline);
         })
         projectViewList.push(projectView);
     })
     return projectViewList;
 }
+
+
 
 export const truncatedText = function(input: String, maxLength: number) {
     const dotReservedLength = 3;
