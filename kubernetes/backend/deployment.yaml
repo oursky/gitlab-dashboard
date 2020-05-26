@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gitlab-dashboard-backend
+  namespace: gitlab-dashboard
+spec: 
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gitlab-dashboard-backend
+  template:
+    metadata:
+      labels:
+        app: gitlab-dashboard-backend
+    spec:
+      containers:
+      - name: api-server
+        image: gcr.io/oursky-kube/gitlab-dashboard:trial8.0
+        ports:
+        - containerPort: 8000
+        resources:
+          requests:
+            cpu: 70m
+            memory: 160Mi
+          limits:
+            cpu: 110m
+            memory: 200Mi
+        imagePullPolicy: Always

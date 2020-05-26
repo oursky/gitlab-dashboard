@@ -1,0 +1,17 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: gitlab-dashboard-backend
+  namespace: gitlab-dashboard
+spec:
+  rules:
+  - host: gitlab-dashboard.pandawork.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: gitlab-dashboard-backend
+          servicePort: 8000
+  tls:
+  - hosts:
+    - gitlab-dashboard.pandawork.com

@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: gitlab-dashboard-backend
+  name: gitlab-dashboard-backend
+  namespace: gitlab-dashboard
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 8000
+  selector: 
+    app: gitlab-dashboard-backend
+  sessionAffinity: None
+  type: ClusterIP
