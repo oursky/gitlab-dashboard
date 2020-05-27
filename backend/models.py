@@ -6,6 +6,7 @@ from django.db import models
 class Project(models.Model):
     id = models.CharField(max_length=32, primary_key=True)
     name = models.CharField(max_length=128)
+    web_url = models.CharField(default="none", max_length=256)
 
 
 class Pipeline(models.Model):
@@ -19,6 +20,7 @@ class Pipeline(models.Model):
     created_at = models.DateTimeField(default=None, blank=True, null=True)
     updated_at = models.DateTimeField(default=None, blank=True, null=True)
     finished_at = models.DateTimeField(default=None, blank=True, null=True)
+    web_url = models.CharField(default="none", max_length=256)
 
 
 class Runner(models.Model):

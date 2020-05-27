@@ -25,7 +25,7 @@ SECRET_KEY = '5zx4a3mz_mqq!rn-l=(5h44k4+im6#-3(d#1+luyc%d+$^#sti'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['gitlab-dashboard.pandawork.com']
+ALLOWED_HOSTS = ['gitlab-dashboard.pandawork.com', 'localhost']
 
 
 # Application definition

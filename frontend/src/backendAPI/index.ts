@@ -1,6 +1,6 @@
 import {Project, Pipeline, PipelineResponse, Runner} from "../models/models";
 
-const BACKEND_API_ROOT_URL = "http://gitlab-dashboard.pandawork.com/backend/";
+const BACKEND_API_ROOT_URL = "http://localhost:8000/backend/";
 
 async function fetchProjects(){
     return fetch(BACKEND_API_ROOT_URL+"projects/")

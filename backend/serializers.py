@@ -5,14 +5,14 @@ from .models import Project, Pipeline, Runner
 class ProjectSerializer(serializers.ModelSerializer):
     class Meta:
         model = Project
-        fields = ['id', 'name']
+        fields = ['id', 'name', 'web_url']
 
 
 class PipelineSerializer(serializers.ModelSerializer):
     class Meta:
         model = Pipeline
         fields = ['id', 'project_id', 'status', 'branch_ref', 'commit_id', 'commit_author', 'commit_message',
-                  'created_at', 'updated_at', 'finished_at']
+                  'created_at', 'updated_at', 'finished_at', 'web_url']
 
 
 class RunnerSerializer(serializers.ModelSerializer):

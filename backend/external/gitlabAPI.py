@@ -22,7 +22,7 @@ def fetchProject():
     r = requests.get(url)
     project_list = r.json()
     for p in project_list:
-        project = Project(id=p['id'], name=p['name'])
+        project = Project(id=p['id'], name=p['name'], web_url=p['web_url'])
         project.save()
 
 
@@ -45,7 +45,7 @@ def fetchPipeline():
             commit_response = requests.get(commit_url)
             commit_data = commit_response.json()
             pipeline = Pipeline(id=pipeline_data['id'], project_id=p_id, status=pipeline_data['status'], branch_ref=pipeline_data['ref'], commit_id=pipeline_data['sha'], commit_author=pipeline_data['user']
-                                ['name'], commit_message=commit_data['message'], created_at=pipeline_data['created_at'], updated_at=pipeline_data['updated_at'], finished_at=pipeline_data['finished_at'])
+                                ['name'], commit_message=commit_data['message'], created_at=pipeline_data['created_at'], updated_at=pipeline_data['updated_at'], finished_at=pipeline_data['finished_at'], web_url=pipeline_data['web_url'])
             pipeline.save()
 
 
