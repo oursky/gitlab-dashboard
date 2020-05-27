@@ -4,6 +4,7 @@ import schedule
 import time
 
 GITLAB_API_FETCH_INTERVAL = 30
+FETCH_ENABLED = True
 
 
 def fetchJob():
@@ -24,5 +25,7 @@ class BackendConfig(AppConfig):
     name = 'backend'
 
     def ready(self):
-        t = threading.Thread(target=worker)
-        t.start()
+        print("fetch enabled: " + str(FETCH_ENABLED))
+        if FETCH_ENABLED:
+            t = threading.Thread(target=worker)
+            t.start()
