@@ -1,4 +1,4 @@
-import {Project, Pipeline, PipelineResponse, Runner} from "../models/models";
+import {Project, Pipeline, PipelineResponse, Runner, ProjectResponse} from "../models/models";
 
 const BACKEND_API_ROOT_URL = "http://localhost:8000/backend/";
 
@@ -8,8 +8,8 @@ async function fetchProjects(){
       .then(
         (result) => {
           const projectList:Project[]=[];
-          result.forEach((p:Project) => {
-            const newProject:Project = {id: p.id, name:p.name};
+          result.forEach((p:ProjectResponse) => {
+            const newProject:Project = {id: p.id, name:p.name, webUrl: p.web_url};
             projectList.push(newProject);
           });
           return projectList;
@@ -27,7 +27,7 @@ async function fetchPipelines(){
       (result) => {
           const pipelineList:Pipeline[]=[];
           result.forEach((p:PipelineResponse)=>{
-              const newPipeline:Pipeline = {id: p.id, projectId:p.project_id, status:p.status,branchRef:p.branch_ref, commitId:p.commit_id, commitAuthor:p.commit_author,commitMessage:p.commit_message, createdAt:p.created_at, updatedAt:p.updated_at, finishedAt:p.finished_at}
+              const newPipeline:Pipeline = {id: p.id, projectId:p.project_id, status:p.status,branchRef:p.branch_ref, commitId:p.commit_id, commitAuthor:p.commit_author,commitMessage:p.commit_message, createdAt:p.created_at, updatedAt:p.updated_at, finishedAt:p.finished_at, webUrl: p.web_url}
               pipelineList.push(newPipeline);
           });
           return pipelineList;

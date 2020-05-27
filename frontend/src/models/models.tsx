@@ -1,6 +1,13 @@
 export interface Project {
   id: string;
   name: string;
+  webUrl: string;
+}
+
+export interface ProjectResponse {
+  id: string;
+  name: string;
+  web_url: string;
 }
 
 export interface Pipeline {
@@ -14,6 +21,7 @@ export interface Pipeline {
   createdAt: Date | null;
   updatedAt: Date | null;
   finishedAt: Date | null;
+  webUrl: string;
 }
 
 export interface PipelineResponse {
@@ -27,6 +35,7 @@ export interface PipelineResponse {
   created_at: Date | null;
   updated_at: Date | null;
   finished_at: Date | null;
+  web_url: string;
 }
 
 export enum PipelineStatus {
@@ -56,7 +65,6 @@ export enum RunnerStatus {
 }
 
 export interface ProjectViewModel {
-  id: string;
-  name: string;
+  project: Project;
   pipelines: Pipeline[];
 }

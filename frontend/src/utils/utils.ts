@@ -15,11 +15,11 @@ export const filterQueuedPipeline = function (pipelines: Pipeline[], isQueued: b
 
 export const generateProjectViewModel = function(projects: Project[], pipelines: Pipeline[]): ProjectViewModel[] {
     const projectViewList: ProjectViewModel[] = [];
-    projects.forEach((project)=>{
-        const projectView:ProjectViewModel = {id: project.id, name:project.name, pipelines:[]};
+    projects.forEach((p)=>{
+        const projectView:ProjectViewModel = {project: p, pipelines:[]};
         const candidatePipeline:Pipeline[] = []; 
         pipelines.forEach((pipeline)=>{
-            if(pipeline.projectId === project.id)candidatePipeline.push(pipeline);
+            if(pipeline.projectId === p.id)candidatePipeline.push(pipeline);
         })
         candidatePipeline.sort((a:Pipeline,b:Pipeline)=>{
             const dateA = new Date(a.createdAt?a.createdAt:"");
@@ -57,4 +57,8 @@ export const displayDateFromNow = function(input: Date) {
     }else{
         return differenceInDay + "day " + differenceInHr % 24 + "hr ago";
     }
+}
+
+export const redirectToWebsite = function(url: string){
+    window.location.href=url;
 }
