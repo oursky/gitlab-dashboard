@@ -28,6 +28,11 @@ cd frontend
 yarn start
 ```
 
+## Setup user Id and private token for individual gitlab account:
+
+1. create a file named '.env' under '/backend/', this is where hte account id and private token would be read from
+2. copy from '/backend/.envExample' to the '/backend.env' in step(1), enter your gitlab account id and private token
+
 ## Architecture:
 ### System Diagram:
 

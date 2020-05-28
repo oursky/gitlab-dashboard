@@ -5,8 +5,8 @@ from dotenv import load_dotenv
 from pathlib import Path
 env_path = Path('./backend') / '.env'
 load_dotenv(dotenv_path=env_path)
-MOCK_USER_ID = '5758391'
-GITLAB_PRIVATE_TOKEN = os.getenv("GITLAB_DEV_PRIVATE_TOKEN")
+GITLAB_USER_ID = os.getenv("GITLAB_USER_ID")
+GITLAB_PRIVATE_TOKEN = os.getenv("GITLAB_PRIVATE_TOKEN")
 
 # TODO: add requests access token header
 
@@ -18,7 +18,8 @@ def executeFetch():
 
 
 def fetchProject():
-    url = 'https://gitlab.com/api/v4/users/' + MOCK_USER_ID + '/projects'
+    url = 'https://gitlab.com/api/v4/users/' + \
+        str(GITLAB_USER_ID) + '/projects'
     r = requests.get(url)
     project_list = r.json()
     for p in project_list:

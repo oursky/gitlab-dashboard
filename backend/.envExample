@@ -1,0 +1,4 @@
+# Gitlab api private token
+GITLAB_PRIVATE_TOKEN = QQQQWWWWEEEERRRRTTTT
+# Gitlab user id
+GITLAB_USER_ID = 1234567
