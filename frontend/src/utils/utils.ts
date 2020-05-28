@@ -1,10 +1,10 @@
-import {Pipeline, PipelineStatus, Project, ProjectViewModel} from '../models/models';
+import {Pipeline, PipelineJobStatus, Project, ProjectViewModel, Job, PipelineViewModel} from '../models/models';
 
 export const filterQueuedPipeline = function (pipelines: Pipeline[], isQueued: boolean): Pipeline[] {
 
     const result:Pipeline[]=[];
     pipelines.forEach((pipeline)=>{
-        if(pipeline.status===PipelineStatus.CREATED || pipeline.status===PipelineStatus.PENDING || pipeline.status===PipelineStatus.RUNNING ){
+        if(pipeline.status===PipelineJobStatus.CREATED || pipeline.status===PipelineJobStatus.PENDING || pipeline.status===PipelineJobStatus.RUNNING ){
             if(isQueued) result.push(pipeline);
         }else{
             if(!isQueued) result.push(pipeline);
@@ -13,22 +13,30 @@ export const filterQueuedPipeline = function (pipelines: Pipeline[], isQueued: b
     return result;
 }
 
-export const generateProjectViewModel = function(projects: Project[], pipelines: Pipeline[]): ProjectViewModel[] {
+export const generateProjectViewModel = function(projects: Project[], pipelines: Pipeline[], jobs: Job[]): ProjectViewModel[] {
     const projectViewList: ProjectViewModel[] = [];
     projects.forEach((p)=>{
         const projectView:ProjectViewModel = {project: p, pipelines:[]};
-        const candidatePipeline:Pipeline[] = []; 
+        const candidatePipelineView:PipelineViewModel[] = []; 
         pipelines.forEach((pipeline)=>{
-            if(pipeline.projectId === p.id)candidatePipeline.push(pipeline);
+            if(pipeline.projectId === p.id){
+                const pipelineView = {pipeline: pipeline, jobs: []}
+                candidatePipelineView.push(pipelineView);
+            }
         })
-        candidatePipeline.sort((a:Pipeline,b:Pipeline)=>{
-            const dateA = new Date(a.createdAt?a.createdAt:"");
-            const dateB = new Date(b.createdAt?b.createdAt:"");
+        candidatePipelineView.sort((a:PipelineViewModel,b:PipelineViewModel)=>{
+            const dateA = new Date(a.pipeline.createdAt?a.pipeline.createdAt:"");
+            const dateB = new Date(b.pipeline.createdAt?b.pipeline.createdAt:"");
             return dateB.getTime()-dateA.getTime();
         });
         const listLength = 5;
-        candidatePipeline.forEach((pipeline, index)=>{
-            if(index < listLength)projectView.pipelines.push(pipeline);
+        candidatePipelineView.forEach((pipelineView, index)=>{
+            jobs.forEach((job)=>{
+                if(job.pipelineId === pipelineView.pipeline.id){
+                    pipelineView.jobs.push(job)
+                }
+            })
+            if(index < listLength)projectView.pipelines.push(pipelineView);
         })
         projectViewList.push(projectView);
     })

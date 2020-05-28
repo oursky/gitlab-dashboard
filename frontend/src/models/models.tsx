@@ -13,7 +13,7 @@ export interface ProjectResponse {
 export interface Pipeline {
   id: string;
   projectId: string;
-  status: PipelineStatus;
+  status: PipelineJobStatus;
   branchRef: string;
   commitId: string; // sha
   commitAuthor: string;
@@ -27,7 +27,7 @@ export interface Pipeline {
 export interface PipelineResponse {
   id: string;
   project_id: string;
-  status: PipelineStatus;
+  status: PipelineJobStatus;
   branch_ref: string;
   commit_id: string; // sha
   commit_author: string;
@@ -38,7 +38,7 @@ export interface PipelineResponse {
   web_url: string;
 }
 
-export enum PipelineStatus {
+export enum PipelineJobStatus {
   RUNNING = 'running',
   PENDING = 'pending',
   SUCCESS = 'success',
@@ -47,6 +47,24 @@ export enum PipelineStatus {
   SKIPPED = 'skipped',
   CREATED = 'created',
   MANUAL = 'manual',
+}
+
+export interface Job {
+  id: string;
+  pipelineId: string;
+  stage: string;
+  name: string;
+  status: PipelineJobStatus;
+  webUrl: string;
+}
+
+export interface JobResponse {
+  id: string;
+  pipeline_id: string;
+  stage: string;
+  name: string;
+  status: PipelineJobStatus;
+  web_url: string;
 }
 
 export interface Runner {
@@ -64,7 +82,12 @@ export enum RunnerStatus {
   NOTCONNECTED = 'not_connected'
 }
 
+export interface PipelineViewModel {
+  pipeline: Pipeline;
+  jobs: Job[];
+}
+
 export interface ProjectViewModel {
   project: Project;
-  pipelines: Pipeline[];
+  pipelines: PipelineViewModel[];
 }

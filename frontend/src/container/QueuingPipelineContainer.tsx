@@ -1,11 +1,12 @@
 import React, {useState, useEffect} from 'react';
-import {Project, Pipeline, ProjectViewModel} from '../models/models';
+import {Project, Pipeline, ProjectViewModel, Job} from '../models/models';
 import {filterQueuedPipeline, generateProjectViewModel} from '../utils/utils';
 import PipelineProjectGenericView from '../components/PipelineProjectGenericView';
 
 interface Props {
     projects: Project[];
     pipelines: Pipeline[];
+    jobs: Job[];
 }
 
 const QueuingPipelineListContainer = (props: Props) => {
@@ -13,7 +14,7 @@ const QueuingPipelineListContainer = (props: Props) => {
 
     useEffect(() => {
         const queuedPipelineList = filterQueuedPipeline(props.pipelines, true);
-        const projectViewModelList: ProjectViewModel[] = generateProjectViewModel(props.projects, queuedPipelineList);
+        const projectViewModelList: ProjectViewModel[] = generateProjectViewModel(props.projects, queuedPipelineList, props.jobs);
         setProjectViewList(projectViewModelList);
     }, [props.pipelines, props.projects]);
 

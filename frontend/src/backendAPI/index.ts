@@ -1,4 +1,4 @@
-import {Project, Pipeline, PipelineResponse, Runner, ProjectResponse} from "../models/models";
+import {Project, Pipeline, PipelineResponse, Runner, ProjectResponse, Job, JobResponse} from "../models/models";
 
 const BACKEND_API_ROOT_URL = "http://localhost:8000/backend/";
 
@@ -37,6 +37,7 @@ async function fetchPipelines(){
       }
     )
 }
+
 async function fetchRunners(){
     return fetch(BACKEND_API_ROOT_URL+"runners/")
       .then(res => res.json())
@@ -55,7 +56,25 @@ async function fetchRunners(){
       )
 }
 
-export function fetchFromBackend(setProjectList:any, setPipelineList:any, setRunnerList:any){
+async function fetchJobs(){
+    return fetch(BACKEND_API_ROOT_URL+"jobs/")
+      .then(res => res.json())
+      .then(
+        (result) => {
+            const jobList:Job[]=[];
+            result.forEach((j:JobResponse)=>{
+                const newJob:Job = {id: j.id, pipelineId: j.pipeline_id, name:j.name, stage: j.stage, status: j.status, webUrl: j.web_url};
+                jobList.push(newJob);
+            });
+            return jobList;
+        },
+        (error) => {
+          console.log(error);
+        }
+      )
+}
+
+export function fetchFromBackend(setProjectList:any, setPipelineList:any, setRunnerList:any, setJobList: any){
     fetchProjects().then((result)=>{
         setProjectList(result);
     });
@@ -67,4 +86,9 @@ export function fetchFromBackend(setProjectList:any, setPipelineList:any, setRun
     fetchRunners().then((result)=>{
         setRunnerList(result);
     })
+
+    fetchJobs().then((result)=>{
+      setJobList(result);
+    })
+
 }

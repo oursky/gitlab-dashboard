@@ -1,7 +1,7 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import clsx from 'clsx';
-import {ProjectViewModel, PipelineStatus} from '../models/models';
-import {Grid, Box, Card, CardActionArea} from '@material-ui/core';
+import {ProjectViewModel, PipelineJobStatus} from '../models/models';
+import {Grid, Box, Card, CardActionArea, Tooltip} from '@material-ui/core';
 import {useStyles} from '../styles/styles';
 import {truncatedText, displayDateFromNow, redirectToWebsite} from '../utils/utils';
 
@@ -10,6 +10,7 @@ interface Props {
 }
 
 function PipelineProjectGenericView(props: Props) {
+
     const classes = useStyles();
     return (
         <div className={classes.root}>
@@ -26,18 +27,32 @@ function PipelineProjectGenericView(props: Props) {
                                             </CardActionArea>
                                         </Card>
                                     </Grid>
-                                    {projectView.pipelines.map((pipeline, index) => {
+                                    {projectView.pipelines.map((pipelineView, index) => {
                                         return (
                                             <Grid item key={index} xs={2}>
-                                                <Card className={clsx(classes.card, classes.pipelineCard, {[classes.cardSuccess]: pipeline.status === PipelineStatus.SUCCESS}, {[classes.cardFailed]: pipeline.status === PipelineStatus.FAILED}, {[classes.cardPending]: pipeline.status === PipelineStatus.PENDING}, {[classes.cardRunning]: pipeline.status === PipelineStatus.RUNNING})}>
-                                                    <CardActionArea onClick={() => {redirectToWebsite(pipeline.webUrl)}}>
-                                                        <p className={classes.content}># {pipeline.id}</p>
-                                                        <p className={clsx(classes.content, classes.smallContent)}>{pipeline.commitId.slice(0, 8)} {truncatedText(pipeline.branchRef, 10)}</p>
-                                                        <p className={classes.content}>{truncatedText(pipeline.commitMessage, 18)}</p>
-                                                        <p className={classes.content}>{truncatedText(pipeline.commitAuthor, 18)}</p>
-                                                        <p className={classes.content}>{pipeline.finishedAt ? displayDateFromNow(pipeline.finishedAt) : ""}</p>
-                                                    </CardActionArea>
-                                                </Card>
+                                                <Tooltip
+                                                    title={
+                                                        <div>
+                                                            {pipelineView.jobs.map((job, index) => {
+                                                                return (
+                                                                    <div>
+                                                                        {job.name}: {job.status}
+                                                                    </div>
+                                                                )
+                                                            })}
+                                                        </div>
+                                                    }
+                                                >
+                                                    <Card className={clsx(classes.card, classes.pipelineCard, {[classes.cardSuccess]: pipelineView.pipeline.status === PipelineJobStatus.SUCCESS}, {[classes.cardFailed]: pipelineView.pipeline.status === PipelineJobStatus.FAILED}, {[classes.cardPending]: pipelineView.pipeline.status === PipelineJobStatus.PENDING}, {[classes.cardRunning]: pipelineView.pipeline.status === PipelineJobStatus.RUNNING})}>
+                                                        <CardActionArea onClick={() => {redirectToWebsite(pipelineView.pipeline.webUrl)}}>
+                                                            <p className={classes.content}># {pipelineView.pipeline.id}</p>
+                                                            <p className={clsx(classes.content, classes.smallContent)}>{pipelineView.pipeline.commitId.slice(0, 8)} {truncatedText(pipelineView.pipeline.branchRef, 10)}</p>
+                                                            <p className={classes.content}>{truncatedText(pipelineView.pipeline.commitMessage, 18)}</p>
+                                                            <p className={classes.content}>{truncatedText(pipelineView.pipeline.commitAuthor, 18)}</p>
+                                                            <p className={classes.content}>{pipelineView.pipeline.finishedAt ? displayDateFromNow(pipelineView.pipeline.finishedAt) : ""}</p>
+                                                        </CardActionArea>
+                                                    </Card>
+                                                </Tooltip>
                                             </Grid>
                                         )
                                     })}
