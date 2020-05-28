@@ -16,7 +16,7 @@ const QueuingPipelineListContainer = (props: Props) => {
         const queuedPipelineList = filterQueuedPipeline(props.pipelines, true);
         const projectViewModelList: ProjectViewModel[] = generateProjectViewModel(props.projects, queuedPipelineList, props.jobs);
         setProjectViewList(projectViewModelList);
-    }, [props.pipelines, props.projects]);
+    }, [props.pipelines, props.projects, props.jobs]);
 
     return (
         <div>

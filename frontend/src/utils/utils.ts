@@ -1,4 +1,5 @@
 import {Pipeline, PipelineJobStatus, Project, ProjectViewModel, Job, PipelineViewModel} from '../models/models';
+import {successStyles, failedStyles, pendingStyles, runningStyles, manualStyles} from '../styles/styles';
 
 export const filterQueuedPipeline = function (pipelines: Pipeline[], isQueued: boolean): Pipeline[] {
 
@@ -69,4 +70,23 @@ export const displayDateFromNow = function(input: Date) {
 
 export const redirectToWebsite = function(url: string){
     window.location.href=url;
+}
+
+export const getPipelineStyleByStatus = function(pipeline: Pipeline){
+    switch(pipeline.status){
+        case PipelineJobStatus.SUCCESS:
+            return successStyles;
+        case PipelineJobStatus.PENDING:
+        case PipelineJobStatus.CREATED:
+            return pendingStyles;
+        case PipelineJobStatus.RUNNING:
+            return runningStyles;
+        case PipelineJobStatus.MANUAL:
+            return manualStyles;
+        case PipelineJobStatus.CANCELED:
+        case PipelineJobStatus.SKIPPED:
+        case PipelineJobStatus.FAILED:
+            return failedStyles;
+    }
+    return failedStyles;
 }

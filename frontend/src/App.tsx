@@ -31,22 +31,22 @@ function App() {
   return (
     <div>
       <Container className={classes.root} maxWidth="lg">
-        <Grid container spacing={2}>
+        <Grid container spacing={5}>
           <Grid item xs={6}>
             <Paper elevation={0} className={classes.paper}>
-              <h3>Queuing Project Pipelines</h3>
+              <div className={classes.blockTitle}>Queuing Project Pipelines</div>
               <QueuingPipelineListContainer projects={projectList} pipelines={pipelineList} jobs={JobList}></QueuingPipelineListContainer>
             </Paper>
           </Grid>
           <Grid item xs={6}>
             <Paper elevation={0} className={classes.paper}>
-              <h3>Completed Project Pipelines</h3>
+              <div className={classes.blockTitle}>Completed Project Pipelines</div>
               <CompletedPipelineListContainer projects={projectList} pipelines={pipelineList} jobs={JobList}></CompletedPipelineListContainer>
             </Paper>
           </Grid>
           <Grid item xs={12}>
             <Paper elevation={0} className={classes.paper}>
-              <h3>Runners</h3>
+              <div className={classes.blockTitle}>Runners</div>
               <RunnerListContainer runners={runnerList}></RunnerListContainer>
             </Paper>
           </Grid>

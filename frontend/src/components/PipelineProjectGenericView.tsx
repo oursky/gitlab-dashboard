@@ -1,9 +1,8 @@
-import React, {useEffect} from 'react';
-import clsx from 'clsx';
-import {ProjectViewModel, PipelineJobStatus} from '../models/models';
-import {Grid, Box, Card, CardActionArea, Tooltip} from '@material-ui/core';
-import {useStyles} from '../styles/styles';
-import {truncatedText, displayDateFromNow, redirectToWebsite} from '../utils/utils';
+import React from 'react';
+import {ProjectViewModel} from '../models/models';
+import {Grid, Box, CardActionArea, Tooltip} from '@material-ui/core';
+import {useStyles, boxStyles} from '../styles/styles';
+import {truncatedText, displayDateFromNow, redirectToWebsite, getPipelineStyleByStatus} from '../utils/utils';
 
 interface Props {
     projectsView: ProjectViewModel[];
@@ -18,14 +17,14 @@ function PipelineProjectGenericView(props: Props) {
                 {props.projectsView.map((projectView, index) => {
                     return (
                         <Grid item key={index}>
-                            <Box className={classes.box}>
+                            <Box>
                                 <Grid container spacing={1}>
                                     <Grid item xs={2}>
-                                        <Card>
+                                        <Box {...boxStyles}>
                                             <CardActionArea className={`${classes.card} ${classes.projectNameCard}`} onClick={() => {redirectToWebsite(projectView.project.webUrl)}}>
                                                 {projectView.project.name}
                                             </CardActionArea>
-                                        </Card>
+                                        </Box>
                                     </Grid>
                                     {projectView.pipelines.map((pipelineView, index) => {
                                         return (
@@ -43,15 +42,15 @@ function PipelineProjectGenericView(props: Props) {
                                                         </div>
                                                     }
                                                 >
-                                                    <Card className={clsx(classes.card, classes.pipelineCard, {[classes.cardSuccess]: pipelineView.pipeline.status === PipelineJobStatus.SUCCESS}, {[classes.cardFailed]: pipelineView.pipeline.status === PipelineJobStatus.FAILED}, {[classes.cardPending]: pipelineView.pipeline.status === PipelineJobStatus.PENDING}, {[classes.cardRunning]: pipelineView.pipeline.status === PipelineJobStatus.RUNNING})}>
-                                                        <CardActionArea onClick={() => {redirectToWebsite(pipelineView.pipeline.webUrl)}}>
+                                                    <Box {...boxStyles} {...getPipelineStyleByStatus(pipelineView.pipeline)} >
+                                                        <CardActionArea className={`${classes.card} ${classes.projectNameCard}`} onClick={() => {redirectToWebsite(pipelineView.pipeline.webUrl)}}>
                                                             <p className={classes.content}># {pipelineView.pipeline.id}</p>
-                                                            <p className={clsx(classes.content, classes.smallContent)}>{pipelineView.pipeline.commitId.slice(0, 8)} {truncatedText(pipelineView.pipeline.branchRef, 10)}</p>
-                                                            <p className={classes.content}>{truncatedText(pipelineView.pipeline.commitMessage, 18)}</p>
-                                                            <p className={classes.content}>{truncatedText(pipelineView.pipeline.commitAuthor, 18)}</p>
+                                                            <p className={classes.content}>{pipelineView.pipeline.commitId.slice(0, 8)} {truncatedText(pipelineView.pipeline.branchRef, 10)}</p>
+                                                            <p className={classes.content}>{truncatedText(pipelineView.pipeline.commitMessage, 17)}</p>
+                                                            <p className={classes.content}>{truncatedText(pipelineView.pipeline.commitAuthor, 17)}</p>
                                                             <p className={classes.content}>{pipelineView.pipeline.finishedAt ? displayDateFromNow(pipelineView.pipeline.finishedAt) : ""}</p>
                                                         </CardActionArea>
-                                                    </Card>
+                                                    </Box>
                                                 </Tooltip>
                                             </Grid>
                                         )
