@@ -1,6 +1,6 @@
 import os
 import requests
-from backend.models import Project, Pipeline, Runner
+from backend.models import Project, Pipeline, Runner, Job
 from dotenv import load_dotenv
 from pathlib import Path
 env_path = Path('./backend') / '.env'
@@ -47,6 +47,20 @@ def fetchPipeline():
             pipeline = Pipeline(id=pipeline_data['id'], project_id=p_id, status=pipeline_data['status'], branch_ref=pipeline_data['ref'], commit_id=pipeline_data['sha'], commit_author=pipeline_data['user']
                                 ['name'], commit_message=commit_data['message'], created_at=pipeline_data['created_at'], updated_at=pipeline_data['updated_at'], finished_at=pipeline_data['finished_at'], web_url=pipeline_data['web_url'])
             pipeline.save()
+            fetchJob(pipeline.project_id, pipeline.id)
+
+
+def fetchJob(project_id, pipe_id):
+    pipeline_jobs_url = 'https://gitlab.com/api/v4/projects/' + \
+        str(project_id) + '/pipelines/' + str(pipe_id) + '/jobs'
+    pipeline_jobs_response = requests.get(pipeline_jobs_url, headers={
+                                          'PRIVATE-TOKEN': GITLAB_PRIVATE_TOKEN})
+    job_list = pipeline_jobs_response.json()
+
+    for j in job_list:
+        job = Job(id=j['id'], pipeline_id=j['pipeline']['id'], stage=j['stage'],
+                  name=j['name'], status=j['status'], web_url=j['web_url'])
+        job.save()
 
 
 def fetchRunner():

@@ -28,3 +28,12 @@ class Runner(models.Model):
     name = models.CharField(max_length=128)
     description = models.CharField(max_length=256)
     status = models.CharField(max_length=32)
+
+
+class Job(models.Model):
+    id = models.CharField(max_length=32, primary_key=True)
+    pipeline_id = models.CharField(max_length=32)
+    stage = models.CharField(max_length=128)
+    name = models.CharField(max_length=128)
+    status = models.CharField(max_length=32)
+    web_url = models.CharField(default="none", max_length=256)

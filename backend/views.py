@@ -1,8 +1,8 @@
 from django.shortcuts import render
-from .models import Project, Pipeline, Runner
+from .models import Project, Pipeline, Runner, Job
 from rest_framework import viewsets
 from rest_framework import permissions
-from .serializers import ProjectSerializer, PipelineSerializer, RunnerSerializer
+from .serializers import ProjectSerializer, PipelineSerializer, RunnerSerializer, JobSerializer
 
 # Create your views here.
 from django.http import HttpResponse
@@ -21,6 +21,11 @@ class PipelineViewSet(viewsets.ModelViewSet):
 class RunnerViewSet(viewsets.ModelViewSet):
     queryset = Runner.objects.all()
     serializer_class = RunnerSerializer
+
+
+class JobViewSet(viewsets.ModelViewSet):
+    queryset = Job.objects.all()
+    serializer_class = JobSerializer
 
 
 def index(request):

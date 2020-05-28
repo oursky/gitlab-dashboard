@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Project, Pipeline, Runner
+from .models import Project, Pipeline, Runner, Job
 
 
 class ProjectSerializer(serializers.ModelSerializer):
@@ -19,3 +19,9 @@ class RunnerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Runner
         fields = ['id', 'name', 'description', 'status']
+
+
+class JobSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Job
+        fields = ['id', 'pipeline_id', 'stage', 'name', 'status', 'web_url']

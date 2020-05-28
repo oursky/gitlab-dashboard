@@ -4,7 +4,7 @@ import schedule
 import time
 
 GITLAB_API_FETCH_INTERVAL = 30
-FETCH_ENABLED = True
+FETCH_ENABLED = False
 
 
 def fetchJob():
