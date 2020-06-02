@@ -1,5 +1,5 @@
-import {Pipeline, PipelineJobStatus, Project, ProjectViewModel, Job, PipelineViewModel} from '../models/models';
-import {successStyles, failedStyles, pendingStyles, runningStyles, manualStyles, canceledStyles} from '../styles/styles';
+import {Pipeline, PipelineJobStatus, Project, ProjectViewModel, Job, PipelineViewModel, Runner, RunnerStatus} from '../models/models';
+import {successStyles, failedStyles, pendingStyles, runningStyles, manualStyles, canceledStyles, runnerActiveStyles, runnerOfflineStyles, runnerOnlineStyles, runnerPausedStyles} from '../styles/styles';
 
 export const filterQueuedPipeline = function (pipelines: Pipeline[], isQueued: boolean): Pipeline[] {
 
@@ -88,6 +88,23 @@ export const getPipelineStyleByStatus = function(pipeline: Pipeline){
                 return canceledStyles;
         case PipelineJobStatus.FAILED:
             return failedStyles;
+    }
+    return failedStyles;
+}
+
+
+
+export const getRunnerStyleByStatus = function(runner: Runner){
+    switch(runner.status){
+        case RunnerStatus.ACTIVE:
+            return runnerActiveStyles;
+        case RunnerStatus.NOTCONNECTED:
+        case RunnerStatus.OFFLINE:
+            return runnerOfflineStyles;
+        case RunnerStatus.ONLINE:
+            return runnerOnlineStyles;
+        case RunnerStatus.PAUSED:
+            return runnerPausedStyles;
     }
     return failedStyles;
 }

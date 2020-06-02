@@ -68,6 +68,26 @@ export const canceledStyles = {
     ...pipelineBaseStyles,
 }
 
+export const runnerActiveStyles = {
+    borderColor:"#90caf9",
+    ...pipelineBaseStyles,
+}
+
+export const runnerOfflineStyles = {
+    borderColor:"#ef9a9a",
+    ...pipelineBaseStyles,
+}
+
+export const runnerOnlineStyles = {
+    borderColor:"#a5d6a7",
+    ...pipelineBaseStyles,
+}
+
+export const runnerPausedStyles = {
+    borderColor:"#ffe082",
+    ...pipelineBaseStyles,
+}
+
 export const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {
