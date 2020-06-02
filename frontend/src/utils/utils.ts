@@ -1,5 +1,5 @@
 import {Pipeline, PipelineJobStatus, Project, ProjectViewModel, Job, PipelineViewModel} from '../models/models';
-import {successStyles, failedStyles, pendingStyles, runningStyles, manualStyles} from '../styles/styles';
+import {successStyles, failedStyles, pendingStyles, runningStyles, manualStyles, canceledStyles} from '../styles/styles';
 
 export const filterQueuedPipeline = function (pipelines: Pipeline[], isQueued: boolean): Pipeline[] {
 
@@ -85,6 +85,7 @@ export const getPipelineStyleByStatus = function(pipeline: Pipeline){
             return manualStyles;
         case PipelineJobStatus.CANCELED:
         case PipelineJobStatus.SKIPPED:
+                return canceledStyles;
         case PipelineJobStatus.FAILED:
             return failedStyles;
     }

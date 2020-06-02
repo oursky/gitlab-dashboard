@@ -38,27 +38,33 @@ const pipelineBaseStyles = {
     borderRadius: 2,
 }
 export const successStyles = {
-    borderColor:"#1E9E43",
+    borderColor:"#4caf50",
     ...pipelineBaseStyles,
 }
 
 export const failedStyles = {
-    borderColor:"#d0251a",
+    borderColor:"#f44336",
     ...pipelineBaseStyles,
 }
 
 export const pendingStyles = {
-    borderColor:"#d0251a",
+    borderColor:"#ffc107",
     ...pipelineBaseStyles,
 }
 
 export const runningStyles = {
-    borderColor:"#fdd835",
+    borderColor:"#2196f3",
     ...pipelineBaseStyles,
 }
 
 export const manualStyles = {
-    borderColor:"#ff5722",
+    borderColor:"#eeeeee",
+    ...pipelineBaseStyles,
+}
+
+
+export const canceledStyles = {
+    borderColor:"#212121",
     ...pipelineBaseStyles,
 }
 
