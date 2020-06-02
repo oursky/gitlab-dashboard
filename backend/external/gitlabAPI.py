@@ -35,8 +35,9 @@ def fetchPipeline():
         project_response = requests.get(project_url)
         pipeline_list = project_response.json()
         for p in pipeline_list:
+            if Pipeline.objects.all().filter(id=p['id']).count() > 0 and Pipeline.objects.all().filter(id=p['id'])[0].status == 'success':
+                continue
             pipeline_id = str(p['id'])
-            # TODO: check if record is in DB and is finished, if so do not fetch with request
             pipeline_url = project_url + '/' + pipeline_id
             pipeline_response = requests.get(pipeline_url)
             pipeline_data = pipeline_response.json()
