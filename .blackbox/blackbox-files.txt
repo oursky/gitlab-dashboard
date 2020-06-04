@@ -1,1 +1,2 @@
 backend/.env
+kubernetes/backend/secret.yaml

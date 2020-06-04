@@ -132,3 +132,4 @@ dmypy.json
 huey.*
 /deploy/staging/id_rsa
 /backend/.env
+/kubernetes/backend/secret.yaml
