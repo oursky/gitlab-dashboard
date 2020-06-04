@@ -3,8 +3,6 @@ import requests
 from backend.models import Project, Pipeline, Runner, Job
 from dotenv import load_dotenv
 from pathlib import Path
-env_path = Path('./backend') / '.env'
-load_dotenv(dotenv_path=env_path)
 GITLAB_USER_ID = os.getenv("GITLAB_USER_ID")
 GITLAB_PRIVATE_TOKEN = os.getenv("GITLAB_PRIVATE_TOKEN")
 
