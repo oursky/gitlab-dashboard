@@ -21,10 +21,19 @@ def worker():
         time.sleep(1)
 
 
+def clear_database():
+    from backend.models import Project, Pipeline, Job, Runner
+    Project.objects.all().delete()
+    Pipeline.objects.all().delete()
+    Job.objects.all().delete()
+    Runner.objects.all().delete()
+
+
 class BackendConfig(AppConfig):
     name = 'backend'
 
     def ready(self):
+        clear_database()
         print("fetch enabled: " + str(FETCH_ENABLED))
         if FETCH_ENABLED:
             t = threading.Thread(target=worker)
