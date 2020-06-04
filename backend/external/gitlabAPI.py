@@ -9,13 +9,13 @@ GITLAB_PRIVATE_TOKEN = os.getenv("GITLAB_PRIVATE_TOKEN")
 # TODO: add requests access token header
 
 
-def executeFetch():
-    fetchProject()
-    fetchPipeline()
-    fetchRunner()
+def execute_fetch():
+    fetch_project()
+    fetch_pipeline()
+    fetch_runner()
 
 
-def fetchProject():
+def fetch_project():
     url = 'https://gitlab.com/api/v4/users/' + \
         str(GITLAB_USER_ID) + '/projects'
     r = requests.get(url)
@@ -25,7 +25,7 @@ def fetchProject():
         project.save()
 
 
-def fetchPipeline():
+def fetch_pipeline():
     project_list = Project.objects.all()
     for p in project_list:
         p_id = p.id
@@ -47,10 +47,10 @@ def fetchPipeline():
             pipeline = Pipeline(id=pipeline_data['id'], project_id=p_id, status=pipeline_data['status'], branch_ref=pipeline_data['ref'], commit_id=pipeline_data['sha'], commit_author=pipeline_data['user']
                                 ['name'], commit_message=commit_data['message'], created_at=pipeline_data['created_at'], updated_at=pipeline_data['updated_at'], finished_at=pipeline_data['finished_at'], web_url=pipeline_data['web_url'])
             pipeline.save()
-            fetchJob(pipeline.project_id, pipeline.id)
+            fetch_job(pipeline.project_id, pipeline.id)
 
 
-def fetchJob(project_id, pipe_id):
+def fetch_job(project_id, pipe_id):
     pipeline_jobs_url = 'https://gitlab.com/api/v4/projects/' + \
         str(project_id) + '/pipelines/' + str(pipe_id) + '/jobs'
     pipeline_jobs_response = requests.get(pipeline_jobs_url, headers={
@@ -63,7 +63,7 @@ def fetchJob(project_id, pipe_id):
         job.save()
 
 
-def fetchRunner():
+def fetch_runner():
     url = 'https://gitlab.com/api/v4/runners'
     # TODO: store private token properly
     res = requests.get(url, headers={'PRIVATE-TOKEN': GITLAB_PRIVATE_TOKEN})

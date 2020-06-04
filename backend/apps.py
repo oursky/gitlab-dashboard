@@ -7,15 +7,15 @@ GITLAB_API_FETCH_INTERVAL = 20
 FETCH_ENABLED = True
 
 
-def fetchJob():
-    from backend.external.gitlabAPI import executeFetch
+def fetch_job():
+    from backend.external.gitlabAPI import execute_fetch
     print("fetch start")
-    executeFetch()
+    execute_fetch()
     print("fetch completed")
 
 
 def worker():
-    schedule.every(GITLAB_API_FETCH_INTERVAL).seconds.do(fetchJob)
+    schedule.every(GITLAB_API_FETCH_INTERVAL).seconds.do(fetch_job)
     while True:
         schedule.run_pending()
         time.sleep(1)
