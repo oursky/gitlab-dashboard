@@ -3,8 +3,8 @@ import threading
 import schedule
 import time
 
-GITLAB_API_FETCH_INTERVAL = 30
-FETCH_ENABLED = False
+GITLAB_API_FETCH_INTERVAL = 20
+FETCH_ENABLED = True
 
 
 def fetchJob():

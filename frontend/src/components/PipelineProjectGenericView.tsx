@@ -34,7 +34,7 @@ function PipelineProjectGenericView(props: Props) {
                                                         <div>
                                                             {pipelineView.jobs.map((job, index) => {
                                                                 return (
-                                                                    <div>
+                                                                    <div key={index}>
                                                                         {job.name}: {job.status}
                                                                     </div>
                                                                 )

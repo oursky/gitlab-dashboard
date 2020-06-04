@@ -15,7 +15,7 @@ function App() {
   const [runnerList, setRunnerList] = useState<Runner[]>([]);
 
   const classes = useRootStyles();
-  const fetchRefreshRate = 10000;
+  const fetchRefreshRate = 5000;
 
   useEffect(() => {
     try {

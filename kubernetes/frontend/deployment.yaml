@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: api-server
-        image: gcr.io/oursky-kube/gitlab-dashboard:frontendtrial1.0
+        image: gcr.io/oursky-kube/gitlab-dashboard:frontendtrial2.0
         ports:
         - containerPort: 80
         resources:
